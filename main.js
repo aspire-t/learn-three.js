@@ -2,11 +2,16 @@ import * as THREE from 'three'
 
 // 场景：- 3d 容器
 var scene = new THREE.Scene()
+
+// 坐标系
+var axes = new THREE.AxesHelper(2, 2, 2)
+scene.add(axes)
+
 var aspect = window.innerWidth / window.innerHeight
 // 相机
 var camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
-// camera.position.set(0, 0, 5)
-// camera.lookAt(0, 0, 0)
+camera.position.set(0, 0, 5)
+camera.lookAt(0, 0, 0)
 
 var renderer = new THREE.WebGL1Renderer()
 // 初始化, 设置窗口大小
@@ -21,16 +26,19 @@ var material = new THREE.MeshNormalMaterial() // 这个材质自带颜色
 
 // 物体: geometry (几何体，骨架) + material (材质，皮肤)
 var cube = new THREE.Mesh(geometry, material)
-cube.scale.set(2, 2, 2)
+// cube.position.set(1, 1, 1)
+cube.rotation.z = THREE.MathUtils.degToRad(45)
+// cube.rotation.z = 45 / 180 * Math.PI
+// cube.scale.set(2, 2, 2)
 scene.add(cube)
-camera.position.z = 5
+// camera.position.z = 5
 
 // 渲染方式
 var render = function () {
 	requestAnimationFrame(render)
 	// cube.rotation.x += 0.1
 	// cube.rotation.y += 0.1
-	cube.rotation.y = THREE.MathUtils.degToRad(45)
+	// cube.rotation.y = THREE.MathUtils.degToRad(45)
 	renderer.render(scene, camera)
 }
 
