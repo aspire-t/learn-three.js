@@ -17,3 +17,14 @@ Object 包括： point, line, mesh
 ## Camera
 
 Camera 和scene 其实不是父子关系，他是一半在scene里面，一半在scene外面的
+
+## transform
+
+### Unit Cycle
+
+![](./images/旋转角度.jpg)
+
+```js
+// 旋转45度
+cube.rotation.y = THREE.MathUtils.degToRad(45)
+```

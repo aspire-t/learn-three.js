@@ -18,16 +18,19 @@ document.body.appendChild(renderer.domElement)
 
 var geometry = new THREE.BoxGeometry(1, 1, 1)
 var material = new THREE.MeshNormalMaterial() // 这个材质自带颜色
+
 // 物体: geometry (几何体，骨架) + material (材质，皮肤)
 var cube = new THREE.Mesh(geometry, material)
+cube.scale.set(2, 2, 2)
 scene.add(cube)
 camera.position.z = 5
 
 // 渲染方式
 var render = function () {
 	requestAnimationFrame(render)
-	cube.rotation.x += 0.1
-	cube.rotation.y += 0.1
+	// cube.rotation.x += 0.1
+	// cube.rotation.y += 0.1
+	cube.rotation.y = THREE.MathUtils.degToRad(45)
 	renderer.render(scene, camera)
 }
 
