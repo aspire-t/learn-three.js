@@ -1,7 +1,9 @@
 import * as THREE from 'three'
+import Stat from 'three/examples/jsm/libs/stats.module'
 
 // 场景：- 3d 容器
 var scene = new THREE.Scene()
+const stat = new Stat()
 
 // 坐标系
 var axes = new THREE.AxesHelper(2, 2, 2)
@@ -20,6 +22,7 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 // 渲染器dom结构
 // console.log(renderer.domElement) // 这个就是个canvas
 document.body.appendChild(renderer.domElement)
+document.body.appendChild(stat.domElement)
 
 var geometry = new THREE.BoxGeometry(1, 1, 1)
 var material = new THREE.MeshNormalMaterial() // 这个材质自带颜色
@@ -40,6 +43,7 @@ var render = function () {
 	// cube.rotation.y += 0.1
 	// cube.rotation.y = THREE.MathUtils.degToRad(45)
 	renderer.render(scene, camera)
+	stat.update()
 }
 
 render()
