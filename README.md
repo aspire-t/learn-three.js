@@ -108,3 +108,47 @@ var render = function () {
 
 render()
 ```
+
+上面的代码存在一个小问题
+
+在60hz  刷新率的情况下 旋转的角度 = 60 * 0.01 = 0.6
+在120hz 刷新率的情况下 旋转的角度 = 120 * 0.01 = 1.2 
+
+所以需要修改下代码
+
+```js
+let time = Date.now()
+var render = function () {
+	let currentTime = Date.now()
+	let deltaTime = currentTime - time
+	time = currentTime
+	// console.log(deltaTime)
+	cube.rotation.z += deltaTime * 0.001
+	renderer.render(scene, camera)
+	requestAnimationFrame(render)
+}
+
+render()
+```
+
+### getElapsedTime(推荐)
+
+上面那个方法是没什么问题的，不过threejs提供了一个方法，`clock.getElapsedTime`,提供了一个随时间自增的一个值。并且已经考虑了不同刷新率的问题。推荐使用这个方式
+
+```js
+const clock = new THREE.Clock()
+
+var render = function () {
+	const time = clock.getElapsedTime()
+	cube.rotation.z = time
+	// 这样设置cube会绕着原点旋转
+	cube.position.x = Math.sin(time)
+	cube.position.y = Math.cos(time)
+
+	console.log(time)
+	renderer.render(scene, camera)
+	requestAnimationFrame(render)
+}
+
+render()
+```

@@ -37,13 +37,33 @@ scene.add(cube)
 // camera.position.z = 5
 
 // 渲染方式
+// let time = Date.now()
+// var render = function () {
+// 	let currentTime = Date.now()
+// 	let deltaTime = currentTime - time
+// 	time = currentTime
+// 	console.log(deltaTime)
+// 	cube.rotation.z += deltaTime * 0.001
+// 	// cube.rotation.x += 0.1
+// 	// cube.rotation.y += 0.1
+// 	// cube.rotation.y = THREE.MathUtils.degToRad(45)
+// 	renderer.render(scene, camera)
+// 	// stat.update()
+// 	requestAnimationFrame(render)
+// }
+// render()
+
+const clock = new THREE.Clock()
+
 var render = function () {
-	requestAnimationFrame(render)
-	// cube.rotation.x += 0.1
-	// cube.rotation.y += 0.1
-	// cube.rotation.y = THREE.MathUtils.degToRad(45)
+	const time = clock.getElapsedTime()
+	cube.rotation.z = time
+	cube.position.x = Math.sin(time)
+	cube.position.y = Math.cos(time)
+
+	console.log(time)
 	renderer.render(scene, camera)
-	stat.update()
+	requestAnimationFrame(render)
 }
 
 render()
