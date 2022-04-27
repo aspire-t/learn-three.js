@@ -81,3 +81,30 @@ console.log(cube.scale) // 返回的也是Vector3这个对象
 
 ![](./images/旋转角度.jpg)
 
+## 运动的几种方式
+
+### setInterval
+
+这种方法很容易理解，但是众所周知，setInterval，是没有办法保证帧率的。所以一般不用这个方法
+
+```js
+setInterval(()=>{
+	cube.rotation.z += 0.01
+	renderer.render(scene, camera)
+}, 1000/60)
+```
+
+### raf
+
+官方API，基本能保证帧率，除了存在兼容问题，一般都用这个方法
+
+```js
+var render = function () {
+	cube.rotation.z += 0.01
+	renderer.render(scene, camera)
+
+	requestAnimationFrame(render)
+}
+
+render()
+```

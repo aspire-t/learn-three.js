@@ -47,3 +47,9 @@ var render = function () {
 }
 
 render()
+
+
+// setInterval(()=>{
+// 	cube.rotation.z += 0.01
+// 	renderer.render(scene, camera)
+// }, 1000/60)
