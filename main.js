@@ -24,17 +24,40 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 document.body.appendChild(stat.domElement)
 
-var geometry = new THREE.BoxGeometry(1, 1, 1)
-var material = new THREE.MeshNormalMaterial() // 这个材质自带颜色
+// var geometry = new THREE.BoxGeometry(1, 1, 1)
+// var material = new THREE.MeshNormalMaterial() // 这个材质自带颜色
 
-// 物体: geometry (几何体，骨架) + material (材质，皮肤)
-var cube = new THREE.Mesh(geometry, material)
-// cube.position.set(1, 1, 1)
-cube.rotation.z = THREE.MathUtils.degToRad(45)
-// cube.rotation.z = 45 / 180 * Math.PI
-// cube.scale.set(2, 2, 2)
-scene.add(cube)
-// camera.position.z = 5
+// // 物体: geometry (几何体，骨架) + material (材质，皮肤)
+// var cube = new THREE.Mesh(geometry, material)
+// // cube.position.set(1, 1, 1)
+// cube.rotation.z = THREE.MathUtils.degToRad(45)
+// // cube.rotation.z = 45 / 180 * Math.PI
+// // cube.scale.set(2, 2, 2)
+// scene.add(cube)
+// // camera.position.z = 5
+
+let cubes = []
+function createCube () {
+	var geometry = new THREE.BoxGeometry(1, 1, 1)
+	var material = new THREE.MeshBasicMaterial({
+		color: 0xffffff * Math.random()
+	})
+
+	var cube = new THREE.Mesh(geometry, material)
+	cube.position.x = (Math.random() - 0.5) * 10
+	cube.position.y = (Math.random() - 0.5) * 4
+	cube.position.z = (Math.random() - 0.5) * 4
+
+	cubes.push(cube)
+}
+
+for(let i = 0; i < 20; i++) {
+	createCube()
+}
+
+cubes.forEach(cube => {
+	scene.add(cube)
+})
 
 // 渲染方式
 // let time = Date.now()
@@ -57,11 +80,15 @@ const clock = new THREE.Clock()
 
 var render = function () {
 	const time = clock.getElapsedTime()
-	cube.rotation.z = time
-	cube.position.x = Math.sin(time)
-	cube.position.y = Math.cos(time)
+	// cube.rotation.z = time
+	// cube.position.x = Math.sin(time)
+	// cube.position.y = Math.cos(time)
 
-	console.log(time)
+	cubes.forEach((cube, index) => {
+		cube.rotation.x = time * 0.4 + index
+		cube.rotation.y = time * 0.4 + index
+	})
+	// console.log(time)
 	renderer.render(scene, camera)
 	requestAnimationFrame(render)
 }
