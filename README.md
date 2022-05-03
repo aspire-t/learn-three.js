@@ -166,3 +166,16 @@ const stat = new Stat()
 document.body.appendChild(stat.domElement)
 ```
 
+### Controls鼠标交互
+
+基本的一个鼠标交互
+
+```js
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
+const orbitControls = new OrbitControls(camera, renderer.domElement)
+
+// 在raf中更新
+orbitControls.update()
+```
+

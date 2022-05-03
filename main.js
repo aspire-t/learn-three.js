@@ -1,11 +1,12 @@
 import * as THREE from 'three'
 import Stat from 'three/examples/jsm/libs/stats.module'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 // 场景：- 3d 容器
 var scene = new THREE.Scene()
 const stat = new Stat()
 
-// 坐标系
+// 辅助参考坐标系
 var axes = new THREE.AxesHelper(2, 2, 2)
 scene.add(axes)
 
@@ -24,8 +25,10 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 document.body.appendChild(stat.domElement)
 
+const orbitControls = new OrbitControls(camera, renderer.domElement)
+
 // var geometry = new THREE.BoxGeometry(1, 1, 1)
-// var material = new THREE.MeshNormalMaterial() // 这个材质自带颜色
+// var material = new THREE.MeshNormalMaterial() // 这个是根据法向量的，因为每个面的发线都不一样，所以每个面的颜色都不一样
 
 // // 物体: geometry (几何体，骨架) + material (材质，皮肤)
 // var cube = new THREE.Mesh(geometry, material)
@@ -37,6 +40,7 @@ document.body.appendChild(stat.domElement)
 // // camera.position.z = 5
 
 let cubes = []
+// 创建cube的方法
 function createCube () {
 	var geometry = new THREE.BoxGeometry(1, 1, 1)
 	var material = new THREE.MeshBasicMaterial({
@@ -49,6 +53,8 @@ function createCube () {
 	cube.position.z = (Math.random() - 0.5) * 4
 
 	cubes.push(cube)
+
+	orbitControls.update()
 }
 
 for (let i = 0; i < 20; i++) {
