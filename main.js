@@ -16,9 +16,9 @@ var camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000)
 camera.position.set(0, 0, 5)
 camera.lookAt(0, 0, 0)
 
+// 渲染器
 var renderer = new THREE.WebGL1Renderer()
 // 初始化, 设置窗口大小
-// 渲染器
 renderer.setSize(window.innerWidth, window.innerHeight)
 // 渲染器dom结构
 // console.log(renderer.domElement) // 这个就是个canvas
@@ -40,6 +40,7 @@ const orbitControls = new OrbitControls(camera, renderer.domElement)
 // // camera.position.z = 5
 
 let cubes = []
+let group = new THREE.Group()
 // 创建cube的方法
 function createCube () {
 	var geometry = new THREE.BoxGeometry(1, 1, 1)
@@ -53,6 +54,7 @@ function createCube () {
 	cube.position.z = (Math.random() - 0.5) * 4
 
 	cubes.push(cube)
+	group.add(cube)
 
 	orbitControls.update()
 }
@@ -61,9 +63,13 @@ for (let i = 0; i < 20; i++) {
 	createCube()
 }
 
-cubes.forEach(cube => {
-	scene.add(cube)
-})
+// 单独添加每个cube
+// cubes.forEach(cube => {
+// 	scene.add(cube)
+// })
+
+// 组合
+scene.add(group)
 
 // 渲染方式
 // let time = Date.now()
@@ -90,10 +96,12 @@ var render = function () {
 	// cube.position.x = Math.sin(time)
 	// cube.position.y = Math.cos(time)
 
-	cubes.forEach((cube, index) => {
-		cube.rotation.x = time * 0.4 + index
-		cube.rotation.y = time * 0.4 + index
-	})
+	// cubes.forEach((cube, index) => {
+	// 	cube.rotation.x = time * 0.4 + index
+	// 	cube.rotation.y = time * 0.4 + index
+	// })
+
+	group.rotation.z = time
 	// console.log(time)
 	renderer.render(scene, camera)
 	requestAnimationFrame(render)

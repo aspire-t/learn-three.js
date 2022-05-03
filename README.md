@@ -158,7 +158,6 @@ render()
 核心就是这3行代码
 
 ```js
-
 import Stat from 'three/examples/jsm/libs/stats.module'
 
 const stat = new Stat()
@@ -169,6 +168,7 @@ document.body.appendChild(stat.domElement)
 ### Controls鼠标交互
 
 基本的一个鼠标交互
+[OrbitControls](https://threejs.org/docs/index.html#examples/zh/controls/OrbitControls)
 
 ```js
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -179,3 +179,8 @@ const orbitControls = new OrbitControls(camera, renderer.domElement)
 orbitControls.update()
 ```
 
+### Group
+
+可以参考[SolarSystem](./examples/SolarSystem.js)这个例子
+
+如果不组合，每个cube就是单独的一个cube，如果cube组合在了一起，那么他们就是一个整体存在的。
