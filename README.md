@@ -152,3 +152,17 @@ var render = function () {
 
 render()
 ```
+
+### 帧率检测
+
+核心就是这3行代码
+
+```js
+
+import Stat from 'three/examples/jsm/libs/stats.module'
+
+const stat = new Stat()
+
+document.body.appendChild(stat.domElement)
+```
+
